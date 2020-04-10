@@ -4,24 +4,21 @@
 package com.beverage.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.beverage.helper.Helper;
 import com.beverage.model.OrderDetails;
 import com.beverage.model.OrderModel;
 import com.beverage.service.ItemOrderService;
 
-@Controller
+@RestController
 public class OrderController {
 
 	@Autowired
@@ -42,7 +39,7 @@ public class OrderController {
 			String itemName = obj.getItemName();
 			// extract for any ingredients excluded
 			String excItems = obj.getExclusionItem();
-			if (excItems.trim().equals("")) { // if excluded then Place Order
+			if (excItems.trim().equals("")) { // if not excluded then Place Order
 				orderPrice = orderService.placeOrder(itemName);
 			} else { // If excluded then Subtract the excluded ingredients cost
 				orderPrice = orderService.placeOrder(itemName, excItems);

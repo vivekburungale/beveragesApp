@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 public class OrderDaoImpl implements OrderDao {
 
 	@Autowired
-	@PersistenceContext
 	private EntityManager entityManager;
 
 	public String getItemPrice(String itemName) {
