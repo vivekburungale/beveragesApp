@@ -7,6 +7,6 @@ API to access with Exclusion Items http://localhost:8080/order?orderDetails=Chai
 
 API to access without Exclusion Items http://localhost:8080/order?orderDetails=Chai
 
-API to place order for multiple Menu items http://localhost:8080/order?orderDetails=Chai,-sugar,Chai,Coffee,-milk
+API to place order for multiple Menu items http://localhost:8080/order?orderDetails="Chai,-sugar","Chai","Coffee,-milk"
 
 To access the H2 Console http://localhost:8080/h2
