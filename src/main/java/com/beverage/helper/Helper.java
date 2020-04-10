@@ -22,7 +22,7 @@ public class Helper {
 		
 		List<OrderModel> lstmodel = new ArrayList<OrderModel>();
 		orderDetails=orderDetails.replaceAll(" ",""); // removes any white spaces
-		String[] strings = orderDetails.split("\"");
+		String[] strings = orderDetails.split("\"");  // this splits the orders into different items. Doublequotes as a separator
 
 		List<String> lstOrders = Arrays.asList(strings).stream() // convert list to stream
 				.filter(singleOrder -> !singleOrder.equals(",")) // we will check for item 
@@ -40,6 +40,7 @@ public class Helper {
 			lstmodel.add(model);
 		}
 
+		
 		return lstmodel;
 	}
 

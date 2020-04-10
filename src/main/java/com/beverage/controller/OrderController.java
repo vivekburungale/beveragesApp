@@ -37,10 +37,12 @@ public class OrderController {
 		for (OrderModel obj : lstObj) {
 			String orderPrice;
 			OrderDetails orderObj = new OrderDetails();
+			
+			// extract the MenuItem Name
 			String itemName = obj.getItemName();
-
+			// extract for any ingredients excluded
 			String excItems = obj.getExclusionItem();
-			if (excItems.trim().equals("")) { // if nothing is excluded then Place Order and Item
+			if (excItems.trim().equals("")) { // if excluded then Place Order
 				orderPrice = orderService.placeOrder(itemName);
 			} else { // If excluded then Subtract the excluded ingredients cost
 				orderPrice = orderService.placeOrder(itemName, excItems);
@@ -57,7 +59,7 @@ public class OrderController {
 			model.add(orderObj);
 		}
 
-		return new ResponseEntity(model, HttpStatus.OK);
+		return new ResponseEntity<ArrayList<OrderDetails>>(model, HttpStatus.OK);
 	}
 
 }
