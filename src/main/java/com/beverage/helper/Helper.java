@@ -4,10 +4,12 @@
 package com.beverage.helper;
 
 import java.util.ArrayList;
+import java.util.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,13 +19,27 @@ import com.beverage.model.OrderModel;
 public class Helper {
 
 	public List<OrderModel> getOrderItem(String orderDetails) {
-		OrderModel model = new OrderModel();
+		
 		List<OrderModel> lstmodel = new ArrayList<OrderModel>();
-		String menuItems = getMenuItem(orderDetails);
-		String exItems = getExclusionItem(orderDetails);
-		model.setItemName(menuItems);
-		model.setExclusionItem(exItems);
-		lstmodel.add(model);
+		orderDetails=orderDetails.replaceAll(" ",""); // removes any white spaces
+		String[] strings = orderDetails.split("\"");
+
+		List<String> lstOrders = Arrays.asList(strings).stream() // convert list to stream
+				.filter(singleOrder -> !singleOrder.equals(",")) // we will check for item 
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		// this process multiple orders if any
+		for (String order : lstOrders) {
+			OrderModel model = new OrderModel();
+			String menuItems = getMenuItem(order);
+			if (menuItems.equals(""))
+				continue;
+			String exItems = getExclusionItem(order);
+			model.setItemName(menuItems);
+			model.setExclusionItem(exItems);
+			lstmodel.add(model);
+		}
+
 		return lstmodel;
 	}
 

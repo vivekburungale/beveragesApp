@@ -77,7 +77,27 @@ public class OrderRestTest extends AbstractTest {
 		for (OrderDetails obj : order) {
 			assertEquals(obj.getStatus(), "Item Not Found");
 		}
+		
+	}
+	
+	@Test
+	public void getOrderPriceForMultipleMenuItem() throws Exception {
+		String uri = "/order?orderDetails=\"Chai,-sugar\",\"Chai\",\"Coffee,-milk\"";
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON))
+				.andReturn();
 
+		String content = mvcResult.getResponse().getContentAsString();
+		// OrderDetails order = super.mapFromJson(content, OrderDetails.class);
+		List<OrderDetails> order = Arrays.asList(super.mapFromJson(content, OrderDetails[].class));
+		// OrderDetails[] orderlist = super.mapFromJson(content, OrderDetails[].class);
+		/*
+		 * String itemName = order.getItemName(); assertEquals("Chai", itemName);
+		 * assertNotNull(order.getExclusionItem()); assertEquals("2.5",
+		 * order.getOrderPrice());
+		 */
+		System.out.println("Size" + order.size());
+		assertEquals(order.size(), 3);
+		
 	}
 
 }
